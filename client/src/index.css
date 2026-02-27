@@ -1,0 +1,95 @@
+/* ═══════════════════════════════════════════
+   GLOBAL RESET
+═══════════════════════════════════════════ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ═══════════════════════════════════════════
+   ROOT + BODY FIX
+═══════════════════════════════════════════ */
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  scroll-behavior: smooth;
+  background: #080808;
+  color: #f4ede0;
+  font-family: "Barlow", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ═══════════════════════════════════════════
+   PAGE WRAPPER (Fix for fixed navbar)
+═══════════════════════════════════════════ */
+
+.page-wrapper {
+  padding-top: 10px; /* Adjust if navbar height changes */
+  min-height: 100vh;
+}
+
+/* ═══════════════════════════════════════════
+   GLOBAL ELEMENT CLEANUP
+═══════════════════════════════════════════ */
+
+/* Remove default link underline */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Remove list styling */
+ul,
+ol {
+  list-style: none;
+}
+
+/* Responsive images */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Button reset */
+button {
+  font-family: inherit;
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+}
+
+/* Text selection */
+::selection {
+  background: #e4301f;
+  color: #ffffff;
+}
+
+/* ═══════════════════════════════════════════
+   SCROLLBAR (Luxury Dark Theme)
+═══════════════════════════════════════════ */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f0f0f;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e1e1e;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #e4301f;
+}

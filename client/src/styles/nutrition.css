@@ -1,0 +1,628 @@
+/* ═══════════════════════════════════════════
+   NUTRITION PAGE
+═══════════════════════════════════════════ */
+
+:root {
+  --black: #080808;
+  --white: #f4ede0;
+  --cream: #e8dfd0;
+  --red: #e4301f;
+  --red-dark: #b82218;
+  --gold: #c9a84c;
+  --grey: #131313;
+  --grey-mid: #1e1e1e;
+  --text-muted: #777;
+}
+
+.nutrition-page {
+  background: var(--black);
+  color: var(--white);
+  font-family: "Barlow", sans-serif;
+  overflow-x: hidden;
+}
+
+.section-tag {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.section-title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(36px, 4.8vw, 58px);
+  letter-spacing: 0.03em;
+  line-height: 1;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+
+.section-desc {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.85;
+  color: rgba(244, 237, 224, 0.5);
+  max-width: 480px;
+}
+
+.section-header-inline {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 60px;
+  gap: 40px;
+}
+
+.dot--gold {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  display: inline-block;
+  flex-shrink: 0;
+  animation: dotBlink 2.2s infinite;
+}
+
+@keyframes dotBlink {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.75);
+  }
+}
+
+.btn-primary {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  background: var(--red);
+  color: var(--white);
+  border: none;
+  padding: 15px 34px;
+  cursor: pointer;
+  clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+.btn-primary:hover {
+  background: var(--red-dark);
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: var(--white);
+  padding: 14px 26px;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+.btn-ghost:hover {
+  border-color: var(--white);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* ═══════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════ */
+.nutr-hero {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  background: var(--black);
+  overflow: hidden;
+  padding: 140px 80px 100px;
+}
+
+.nutr-hero__noise {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+.nutr-hero__grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+}
+
+.nutr-hero::after {
+  content: "FUEL";
+  position: absolute;
+  right: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(120px, 20vw, 260px);
+  letter-spacing: 0.04em;
+  color: rgba(201, 168, 76, 0.04);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.nutr-hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+}
+
+.nutr-hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 28px;
+}
+
+.nutr-hero__headline-wrap {
+  line-height: 0.9;
+}
+
+.nutr-hero__headline {
+  display: block;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(72px, 11vw, 148px);
+  letter-spacing: 0.025em;
+  color: var(--white);
+  line-height: 0.9;
+}
+
+.nutr-hero__sub {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.85;
+  color: rgba(244, 237, 224, 0.55);
+  margin: 32px 0 40px;
+  max-width: 500px;
+}
+
+.nutr-hero__ctas {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Floating data card */
+.nutr-hero__datacard {
+  position: absolute;
+  right: 100px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  background: rgba(8, 8, 8, 0.88);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(201, 168, 76, 0.22);
+  padding: 24px 28px;
+  min-width: 220px;
+}
+
+.nutr-hero__datacard-tag {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 18px;
+}
+
+.nutr-hero__datacard-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.nutr-hero__datacard-row:last-child {
+  margin-bottom: 0;
+}
+
+.nutr-hero__datacard-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.nutr-hero__datacard-label {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 224, 0.55);
+  flex: 1;
+}
+
+.nutr-hero__datacard-val {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 18px;
+  color: var(--white);
+}
+
+/* ═══════════════════════════════════════════
+   MACRO SECTION
+═══════════════════════════════════════════ */
+.macro-section {
+  padding: 100px 80px;
+  background: var(--grey);
+}
+
+.macro-section__inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.macro-bar {
+  margin-bottom: 32px;
+}
+
+.macro-bar:last-child {
+  margin-bottom: 0;
+}
+
+.macro-bar__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+}
+
+.macro-bar__label {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.06em;
+}
+
+.macro-bar__grams {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  color: var(--white);
+}
+
+.macro-bar__track {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.07);
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.macro-bar-fill {
+  height: 100%;
+  width: var(--pct, 50%);
+  background: var(--color, var(--red));
+  transform-origin: left;
+}
+
+.macro-bar__note {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════════
+   SERVICES
+═══════════════════════════════════════════ */
+.nutr-services {
+  padding: 100px 80px;
+  background: var(--black);
+}
+
+.nutr-services__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+}
+
+.nutr-service-card {
+  background: var(--grey);
+  padding: 38px 30px 40px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    background 0.3s,
+    transform 0.3s;
+}
+
+.nutr-service-card:hover {
+  background: var(--grey-mid);
+  transform: translateY(-5px);
+}
+
+.nutr-service-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.nutr-service-card__id {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: var(--text-muted);
+}
+
+.nutr-service-card__tag {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  padding: 3px 9px;
+}
+
+.nutr-service-card__icon {
+  font-size: 34px;
+  margin-bottom: 18px;
+  display: block;
+}
+
+.nutr-service-card__title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 24px;
+  letter-spacing: 0.04em;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+
+.nutr-service-card__desc {
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: rgba(244, 237, 224, 0.48);
+  margin-bottom: 24px;
+}
+
+.nutr-service-card__btn {
+  background: none;
+  border: none;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  cursor: pointer;
+  padding: 0;
+  transition: letter-spacing 0.2s;
+}
+.nutr-service-card__btn:hover {
+  letter-spacing: 0.32em;
+}
+
+.nutr-service-card__line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+}
+.nutr-service-card:hover .nutr-service-card__line {
+  transform: scaleX(1);
+}
+
+/* ═══════════════════════════════════════════
+   PHASES
+═══════════════════════════════════════════ */
+.nutr-phases {
+  padding: 100px 80px;
+  background: var(--grey);
+}
+
+.nutr-phases__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  margin-top: 50px;
+  position: relative;
+}
+
+.phase-item {
+  background: var(--black);
+  padding: 44px 34px;
+  position: relative;
+  transition: background 0.3s;
+}
+
+.phase-item:hover {
+  background: var(--grey-mid);
+}
+
+.phase-item__connector {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--red), var(--gold));
+}
+
+.phase-item__num {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 60px;
+  color: rgba(228, 48, 31, 0.15);
+  line-height: 1;
+  display: block;
+  margin-bottom: 14px;
+}
+
+.phase-item__tag {
+  display: block;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.phase-item__title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 24px;
+  letter-spacing: 0.04em;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+
+.phase-item__desc {
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: rgba(244, 237, 224, 0.48);
+}
+
+/* ═══════════════════════════════════════════
+   CTA
+═══════════════════════════════════════════ */
+.nutr-cta {
+  position: relative;
+  background: var(--black);
+  border-top: 1px solid rgba(201, 168, 76, 0.15);
+  padding: 100px 60px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.nutr-cta__noise {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+}
+
+.nutr-cta::before {
+  content: "EAT";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(140px, 20vw, 280px);
+  color: rgba(201, 168, 76, 0.025);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.nutr-cta__content {
+  position: relative;
+  z-index: 2;
+}
+
+.nutr-cta__title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(36px, 5.5vw, 68px);
+  letter-spacing: 0.03em;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+
+.nutr-cta__sub {
+  font-size: 15px;
+  font-weight: 300;
+  color: rgba(244, 237, 224, 0.52);
+  margin: 0 auto 44px;
+  max-width: 540px;
+  line-height: 1.85;
+}
+
+.nutr-cta__btns {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .nutr-services__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .nutr-phases__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .macro-section__inner {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+}
+
+@media (max-width: 960px) {
+  .nutr-hero {
+    padding: 120px 40px 80px;
+  }
+  .macro-section,
+  .nutr-services,
+  .nutr-phases {
+    padding: 80px 40px;
+  }
+  .nutr-hero__datacard {
+    display: none;
+  }
+  .section-header-inline {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .nutr-hero {
+    padding: 100px 22px 70px;
+  }
+  .nutr-services__grid {
+    grid-template-columns: 1fr;
+  }
+  .nutr-phases__grid {
+    grid-template-columns: 1fr;
+  }
+  .macro-section,
+  .nutr-services,
+  .nutr-phases,
+  .nutr-cta {
+    padding: 60px 22px;
+  }
+}

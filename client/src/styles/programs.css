@@ -1,0 +1,415 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500&family=Barlow+Condensed:wght@300;400;500;600&display=swap");
+
+/* ─── BASE ─────────────────────────────────────── */
+.programs {
+  background: #060606;
+  color: #f0e8d8;
+  padding-top: 100px;
+  font-family: "Barlow", sans-serif;
+  overflow-x: hidden;
+}
+
+/* ─── HERO ──────────────────────────────────────── */
+.programs-hero {
+  position: relative;
+  padding: 120px 100px 110px;
+  background: #080808;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 60px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+
+.programs-hero__bg-text {
+  position: absolute;
+  top: 50%;
+  right: -40px;
+  transform: translateY(-50%);
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(200px, 22vw, 320px);
+  color: rgba(255, 255, 255, 0.018);
+  pointer-events: none;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  user-select: none;
+}
+
+.programs-hero__content {
+  max-width: 680px;
+}
+
+.programs-hero__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  color: #e4301f;
+  margin-bottom: 30px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.eyebrow-line {
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: #e4301f;
+}
+
+.programs-hero__title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(72px, 9vw, 130px);
+  letter-spacing: 0.03em;
+  margin-bottom: 28px;
+  line-height: 0.92;
+  color: #f0e8d8;
+}
+
+.programs-hero__title span {
+  color: #e4301f;
+  display: inline-block;
+}
+
+.programs-hero__sub {
+  font-size: 15px;
+  font-weight: 300;
+  color: rgba(240, 232, 216, 0.5);
+  line-height: 1.8;
+  max-width: 400px;
+}
+
+/* STATS */
+.programs-hero__stats {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding-bottom: 8px;
+  flex-shrink: 0;
+}
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-left: 1px solid rgba(228, 48, 31, 0.4);
+  padding-left: 20px;
+}
+
+.hero-stat__num {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 38px;
+  letter-spacing: 0.04em;
+  color: #f0e8d8;
+  line-height: 1;
+}
+
+.hero-stat__label {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  color: rgba(240, 232, 216, 0.4);
+  text-transform: uppercase;
+}
+
+/* ─── PROGRAMS SECTION ──────────────────────────── */
+.programs-section {
+  padding: 80px 100px 100px;
+}
+
+.section-header {
+  margin-bottom: 50px;
+}
+
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  color: rgba(240, 232, 216, 0.4);
+  text-transform: uppercase;
+}
+
+.section-label__line {
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: rgba(240, 232, 216, 0.2);
+}
+
+/* GRID */
+.programs-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* CARD */
+.program-card {
+  position: relative;
+  background: #0a0a0a;
+  padding: 40px 32px 36px;
+  cursor: pointer;
+  transition: background 0.35s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.program-card:hover {
+  background: #111111;
+}
+
+.program-card:hover .program-card__hover-accent {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.program-card:hover .program-card__btn {
+  color: #e4301f;
+  gap: 10px;
+}
+
+.program-card:hover .program-card__title {
+  color: #fff;
+}
+
+.program-card__hover-accent {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #e4301f, #ff6b4a);
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition:
+    opacity 0.35s ease,
+    transform 0.4s ease;
+}
+
+.program-card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.program-card__id {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: #444;
+}
+
+.program-card__tag {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  color: #e4301f;
+  border: 1px solid rgba(228, 48, 31, 0.3);
+  padding: 3px 8px;
+  text-transform: uppercase;
+}
+
+.program-card__line {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.05);
+  margin-bottom: 28px;
+}
+
+.program-card__title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 30px;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+  color: #d8d0c0;
+  transition: color 0.3s ease;
+  line-height: 1;
+}
+
+.program-card__desc {
+  font-size: 13.5px;
+  font-weight: 300;
+  line-height: 1.75;
+  color: rgba(240, 232, 216, 0.4);
+  margin-bottom: 32px;
+  flex: 1;
+}
+
+.program-card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.program-card__stat {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: #333;
+}
+
+.program-card__btn {
+  background: none;
+  border: none;
+  color: #555;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition:
+    color 0.3s ease,
+    gap 0.3s ease;
+  text-transform: uppercase;
+}
+
+/* ─── CTA ───────────────────────────────────────── */
+.programs-cta {
+  position: relative;
+  padding: 130px 100px;
+  background: #080808;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+
+.programs-cta__inner {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+}
+
+.programs-cta__label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  color: rgba(240, 232, 216, 0.35);
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
+.programs-cta__title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(50px, 6.5vw, 88px);
+  letter-spacing: 0.04em;
+  margin-bottom: 50px;
+  line-height: 0.94;
+  color: #f0e8d8;
+}
+
+.programs-cta__title span {
+  color: #e4301f;
+}
+
+.programs-cta__actions {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.programs-cta__btn {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  cursor: pointer;
+  padding: 16px 42px;
+  border: none;
+  text-transform: uppercase;
+  transition: all 0.25s ease;
+}
+
+.programs-cta__btn--primary {
+  background: #e4301f;
+  color: #fff;
+}
+
+.programs-cta__btn--primary:hover {
+  background: #c92519;
+  transform: translateY(-3px);
+}
+
+.programs-cta__btn--ghost {
+  background: transparent;
+  color: rgba(240, 232, 216, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.programs-cta__btn--ghost:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #f0e8d8;
+  transform: translateY(-3px);
+}
+
+.programs-cta__bg-num {
+  position: absolute;
+  right: 80px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(200px, 24vw, 340px);
+  color: rgba(255, 255, 255, 0.015);
+  pointer-events: none;
+  line-height: 1;
+  user-select: none;
+}
+
+/* ─── RESPONSIVE ────────────────────────────────── */
+@media (max-width: 1200px) {
+  .programs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .programs-hero__stats {
+    flex-direction: row;
+    gap: 40px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .programs-hero {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 100px 60px 80px;
+  }
+}
+
+@media (max-width: 600px) {
+  .programs-hero,
+  .programs-section,
+  .programs-cta {
+    padding: 80px 28px;
+  }
+
+  .programs-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .programs-hero__title {
+    font-size: 68px;
+  }
+
+  .programs-cta__actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .programs-hero__bg-text {
+    display: none;
+  }
+}
