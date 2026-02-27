@@ -109,6 +109,7 @@ export default function Navbar() {
                 </NavLink>
               </motion.div>
             ))}
+
             <motion.button
               className="navbar__mobile-cta"
               initial={{ opacity: 0, y: 20 }}
