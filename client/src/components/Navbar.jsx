@@ -92,21 +92,22 @@ export default function Navbar() {
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
             {navLinks.map((link, i) => (
-              <motion.button
+              <motion.div
                 key={link}
-                className="navbar__mobile-link"
                 initial={{ x: -40, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 exit={{ x: -40, opacity: 0 }}
                 transition={{ delay: i * 0.06, duration: 0.4 }}
-                onClick={() => {
-                  setActiveLink(link);
-                  setMenuOpen(false);
-                }}
               >
-                <span className="navbar__mobile-num">0{i + 1}</span>
-                {link}
-              </motion.button>
+                <NavLink
+                  to={link === "Home" ? "/" : `/${link.toLowerCase()}`}
+                  className="navbar__mobile-link"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <span className="navbar__mobile-num">0{i + 1}</span>
+                  {link}
+                </NavLink>
+              </motion.div>
             ))}
             <motion.button
               className="navbar__mobile-cta"
