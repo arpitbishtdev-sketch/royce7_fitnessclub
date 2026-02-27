@@ -124,11 +124,11 @@
 ═══════════════════════════════════════════ */
 .nutr-hero {
   position: relative;
-  min-height: 90vh;
+  min-height: 100svh;
   display: flex;
   align-items: center;
   background: var(--black);
-  overflow: hidden;
+  overflow: visible;
   padding: 140px 80px 100px;
 }
 
