@@ -124,7 +124,7 @@
 ═══════════════════════════════════════════ */
 .nutr-hero {
   position: relative;
-  min-height: 100svh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   background: var(--black);
@@ -219,8 +219,7 @@
   top: 50%;
   transform: translateY(-50%);
   z-index: 4;
-  background: rgba(8, 8, 8, 0.88);
-  backdrop-filter: blur(14px);
+  background: rgba(8, 8, 8, 0.95);
   border: 1px solid rgba(201, 168, 76, 0.22);
   padding: 24px 28px;
   min-width: 220px;
