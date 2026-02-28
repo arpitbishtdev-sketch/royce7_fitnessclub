@@ -7,6 +7,13 @@ import "../styles/nutrition.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const CLOUD = import.meta.env.VITE_CLOUDINARY_NAME;
+
+const img = (id, transforms = "q_auto,f_auto") =>
+  `https://res.cloudinary.com/${CLOUD}/image/upload/${transforms}/${id}`;
+
+const NUTR_HERO_BG = img("unnamed_zahoil", "q_auto,f_auto,w_1920");
+
 const services = [
   {
     id: "01",
@@ -95,6 +102,9 @@ export default function Nutrition() {
   const phasesRef = useRef(null);
 
   useEffect(() => {
+    // FIX: Refresh ScrollTrigger after mount so position calculations are correct
+    ScrollTrigger.refresh();
+
     const ctx = gsap.context(() => {
       gsap.fromTo(
         ".nutr-service-card",
@@ -105,7 +115,11 @@ export default function Nutrition() {
           stagger: 0.1,
           duration: 0.9,
           ease: "power3.out",
-          scrollTrigger: { trigger: servicesRef.current, start: "top 78%" },
+          scrollTrigger: {
+            trigger: servicesRef.current,
+            start: "top 78%",
+            once: true,
+          },
         },
       );
 
@@ -118,7 +132,11 @@ export default function Nutrition() {
           stagger: 0.12,
           duration: 0.85,
           ease: "power3.out",
-          scrollTrigger: { trigger: phasesRef.current, start: "top 78%" },
+          scrollTrigger: {
+            trigger: phasesRef.current,
+            start: "top 78%",
+            once: true,
+          },
         },
       );
 
@@ -130,20 +148,32 @@ export default function Nutrition() {
           opacity: 1,
           duration: 0.9,
           ease: "power3.out",
-          scrollTrigger: { trigger: ".nutr-cta", start: "top 85%" },
+          scrollTrigger: {
+            trigger: ".nutr-cta",
+            start: "top 85%",
+            once: true,
+          },
         },
       );
     });
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
   }, []);
 
   return (
     <main className="nutrition-page">
       {/* HERO */}
       <section className="nutr-hero" ref={heroRef}>
-        <div className="nutr-hero__noise" />
-        <div className="nutr-hero__grid" />
+        <div className="nutr-hero__img-wrap" aria-hidden="true">
+          <img src={NUTR_HERO_BG} alt="" className="nutr-hero__img" />
+          <div className="nutr-hero__overlay" />
+        </div>
+
+        <div className="nutr-hero__noise" aria-hidden="true" />
+        <div className="nutr-hero__grid" aria-hidden="true" />
 
         <div className="nutr-hero__content">
           <motion.div
@@ -171,7 +201,7 @@ export default function Nutrition() {
             </motion.h1>
 
             <motion.h1
-              className="tr-hero__headline outline"
+              className="nutr-hero__headline outline"
               initial={{ clipPath: "inset(0 100% 0 0)", opacity: 0 }}
               animate={{ clipPath: "inset(0 0% 0 0)", opacity: 1 }}
               transition={{
@@ -217,6 +247,7 @@ export default function Nutrition() {
             type: "spring",
             stiffness: 180,
           }}
+          aria-hidden="true"
         >
           <div className="nutr-hero__datacard-tag">SAMPLE MACRO SPLIT</div>
           {[
@@ -274,7 +305,7 @@ export default function Nutrition() {
         <div className="section-tag">THE JOURNEY</div>
         <h2 className="section-title">FOUR PHASES TO MASTERY</h2>
         <div className="nutr-phases__grid">
-          {phases.map((p, i) => (
+          {phases.map((p) => (
             <div key={p.num} className="phase-item">
               <div className="phase-item__connector" />
               <div className="phase-item__num">{p.num}</div>
@@ -288,7 +319,7 @@ export default function Nutrition() {
 
       {/* CTA */}
       <section className="nutr-cta">
-        <div className="nutr-cta__noise" />
+        <div className="nutr-cta__noise" aria-hidden="true" />
         <motion.div
           className="nutr-cta__content"
           initial={{ opacity: 0, y: 32 }}

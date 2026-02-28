@@ -6,6 +6,13 @@ import "../styles/programs.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const CLOUD = import.meta.env.VITE_CLOUDINARY_NAME;
+
+const img = (id, transforms = "q_auto,f_auto") =>
+  `https://res.cloudinary.com/${CLOUD}/image/upload/${transforms}/${id}`;
+
+const PROGRAMS_HERO_BG = img("unnamed_bclehe", "q_auto,f_auto,w_1920");
+
 const programs = [
   {
     id: "01",
@@ -96,6 +103,15 @@ export default function Programs() {
     <main className="programs">
       {/* HERO */}
       <section className="programs-hero">
+        <div className="programs-hero__img-wrap">
+          <img
+            src={PROGRAMS_HERO_BG}
+            alt="Elite performance training"
+            className="programs-hero__img"
+          />
+          <div className="programs-hero__overlay" />
+        </div>
+
         <div className="programs-hero__bg-text" aria-hidden="true">
           FORGE
         </div>

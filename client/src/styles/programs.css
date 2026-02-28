@@ -22,6 +22,35 @@
   overflow: hidden;
 }
 
+.programs-hero__img-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.programs-hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.45);
+}
+
+.programs-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 30% 50%,
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.9)
+  );
+}
+
+.programs-hero__content,
+.programs-hero__stats {
+  position: relative;
+  z-index: 2;
+}
+
 .programs-hero__bg-text {
   position: absolute;
   top: 50%;

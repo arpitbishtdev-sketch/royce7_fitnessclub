@@ -14,11 +14,22 @@
   --text-muted: #777;
 }
 
+/* FIX: Ensure html and body allow normal scrolling */
+html,
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
 .trainers-page {
   background: var(--black);
   color: var(--white);
   font-family: "Barlow", sans-serif;
-  overflow-x: hidden;
+  /* FIX: Do NOT use overflow:hidden here — it clips scroll context */
+  overflow-x: clip;
+  overflow-y: visible;
+  position: relative;
 }
 
 /* ── Shared ── */
@@ -128,11 +139,56 @@
 .tr-hero {
   position: relative;
   min-height: 100vh;
+  height: auto;
   display: flex;
   align-items: center;
   background: var(--black);
-  overflow: visible;
+  /* FIX: Use clip instead of hidden so scroll context is preserved */
+  overflow: clip;
   padding: 140px 80px 100px;
+}
+
+/* FIX: All decorative/overlay layers must be pointer-events:none so scroll works */
+.tr-hero__img-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.tr-hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.75);
+  /* FIX: prevent image drag interfering with scroll on mobile */
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.tr-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 30% 50%,
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.9)
+  );
+  pointer-events: none;
+}
+
+.tr-hero__content {
+  position: relative;
+  z-index: 2;
+}
+
+.tr-hero__roster-pill {
+  position: absolute;
+  right: 80px;
+  top: 140px;
+  z-index: 4;
+  /* FIX: pointer-events none so it doesn't interfere with scroll on mobile */
+  pointer-events: none;
 }
 
 .tr-hero__noise {
@@ -141,12 +197,13 @@
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   opacity: 0.03;
   pointer-events: none;
+  z-index: 1;
 }
 
 .tr-hero__grid {
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: 1;
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
@@ -168,6 +225,7 @@
     transparent
   );
   z-index: 2;
+  pointer-events: none;
 }
 
 .tr-hero::after {
@@ -182,6 +240,7 @@
   color: rgba(255, 255, 255, 0.018);
   white-space: nowrap;
   pointer-events: none;
+  z-index: 1;
 }
 
 .tr-hero__content {
@@ -231,10 +290,6 @@
 }
 
 .tr-hero__roster-pill {
-  position: absolute;
-  right: 80px;
-  top: 140px;
-  z-index: 4;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -254,6 +309,10 @@
 .tr-grid-section {
   padding: 100px 80px;
   background: var(--grey);
+  /* FIX: never hide overflow on scroll-animated sections */
+  overflow: visible;
+  position: relative;
+  z-index: 1;
 }
 
 .section-header-row {
@@ -279,7 +338,10 @@
   transition:
     border-color 0.3s,
     background 0.3s;
+  /* FIX: overflow hidden on individual cards is fine */
   overflow: hidden;
+  /* FIX: will-change improves GPU compositing without breaking scroll */
+  will-change: transform, opacity;
 }
 
 .trainer-card-full:hover,
@@ -466,6 +528,7 @@
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.35s ease;
+  pointer-events: none;
 }
 
 .trainer-card-full:hover .tcf__line,
@@ -480,7 +543,8 @@
   padding: 100px 80px;
   background: var(--black);
   position: relative;
-  overflow: hidden;
+  /* FIX: use clip instead of hidden */
+  overflow: clip;
 }
 
 .tr-philosophy::before {
@@ -532,7 +596,8 @@
   background: var(--red);
   padding: 100px 60px;
   text-align: center;
-  overflow: hidden;
+  /* FIX: use clip instead of hidden */
+  overflow: clip;
 }
 
 .trainer-cta__noise {
@@ -628,5 +693,29 @@
   .tr-philosophy,
   .trainer-cta {
     padding: 60px 22px;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   MOBILE SCROLL TOUCH FIX
+═══════════════════════════════════════════ */
+@media (hover: none) and (pointer: coarse) {
+  /* Ensure touch events propagate for scrolling on mobile */
+  .tr-hero__img-wrap,
+  .tr-hero__noise,
+  .tr-hero__grid,
+  .tr-hero__overlay,
+  .tr-hero__accent-line {
+    pointer-events: none;
+    touch-action: none;
+  }
+
+  .trainers-page,
+  .tr-hero,
+  .tr-grid-section,
+  .tr-philosophy,
+  .trainer-cta {
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
   }
 }

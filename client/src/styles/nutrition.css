@@ -14,11 +14,22 @@
   --text-muted: #777;
 }
 
+/* FIX: Ensure html and body allow normal scrolling */
+html,
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
 .nutrition-page {
   background: var(--black);
   color: var(--white);
   font-family: "Barlow", sans-serif;
-  overflow-x: hidden;
+  /* FIX: Do NOT use overflow:hidden — it creates a new scroll context and breaks ScrollTrigger */
+  overflow-x: clip;
+  overflow-y: visible;
+  position: relative;
 }
 
 .section-tag {
@@ -128,8 +139,38 @@
   display: flex;
   align-items: center;
   background: var(--black);
-  overflow: visible;
+  /* FIX: overflow:clip preserves visual clipping without creating a scroll context */
+  overflow: clip;
   padding: 140px 80px 100px;
+}
+
+/* FIX: All decorative/bg layers must have pointer-events:none */
+.nutr-hero__img-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.nutr-hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.35) contrast(1.05);
+  /* FIX: prevent image drag on mobile interfering with scroll */
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.nutr-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 30% 50%,
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.9)
+  );
+  pointer-events: none;
 }
 
 .nutr-hero__noise {
@@ -138,12 +179,13 @@
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   opacity: 0.03;
   pointer-events: none;
+  z-index: 1;
 }
 
 .nutr-hero__grid {
   position: absolute;
   inset: 0;
-  z-index: 0;
+  z-index: 1;
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
@@ -163,6 +205,7 @@
   color: rgba(201, 168, 76, 0.04);
   white-space: nowrap;
   pointer-events: none;
+  z-index: 1;
 }
 
 .nutr-hero__content {
@@ -197,6 +240,11 @@
   line-height: 0.9;
 }
 
+.nutr-hero__headline.outline {
+  -webkit-text-stroke: 2px var(--white);
+  color: transparent;
+}
+
 .nutr-hero__sub {
   font-size: 15px;
   font-weight: 300;
@@ -223,6 +271,8 @@
   border: 1px solid rgba(201, 168, 76, 0.22);
   padding: 24px 28px;
   min-width: 220px;
+  /* FIX: pointer-events none so float card doesn't block scroll on mobile */
+  pointer-events: none;
 }
 
 .nutr-hero__datacard-tag {
@@ -273,6 +323,8 @@
 .macro-section {
   padding: 100px 80px;
   background: var(--grey);
+  position: relative;
+  z-index: 1;
 }
 
 .macro-section__inner {
@@ -338,6 +390,10 @@
 .nutr-services {
   padding: 100px 80px;
   background: var(--black);
+  position: relative;
+  z-index: 1;
+  /* FIX: Never hide overflow on sections with scroll-animated children */
+  overflow: visible;
 }
 
 .nutr-services__grid {
@@ -356,6 +412,8 @@
   transition:
     background 0.3s,
     transform 0.3s;
+  /* FIX: will-change helps GPU compositing without scroll side-effects */
+  will-change: transform, opacity;
 }
 
 .nutr-service-card:hover {
@@ -437,6 +495,7 @@
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.35s ease;
+  pointer-events: none;
 }
 .nutr-service-card:hover .nutr-service-card__line {
   transform: scaleX(1);
@@ -448,6 +507,9 @@
 .nutr-phases {
   padding: 100px 80px;
   background: var(--grey);
+  position: relative;
+  z-index: 1;
+  overflow: visible;
 }
 
 .nutr-phases__grid {
@@ -463,6 +525,8 @@
   padding: 44px 34px;
   position: relative;
   transition: background 0.3s;
+  /* FIX: will-change for animated items */
+  will-change: transform, opacity;
 }
 
 .phase-item:hover {
@@ -476,6 +540,7 @@
   right: 0;
   height: 3px;
   background: linear-gradient(to right, var(--red), var(--gold));
+  pointer-events: none;
 }
 
 .phase-item__num {
@@ -521,7 +586,10 @@
   border-top: 1px solid rgba(201, 168, 76, 0.15);
   padding: 100px 60px;
   text-align: center;
-  overflow: hidden;
+  /* FIX: use clip instead of hidden */
+  overflow: clip;
+  /* FIX: will-change for scroll-animated section */
+  will-change: transform, opacity;
 }
 
 .nutr-cta__noise {
@@ -543,6 +611,7 @@
   color: rgba(201, 168, 76, 0.025);
   pointer-events: none;
   white-space: nowrap;
+  z-index: 1;
 }
 
 .nutr-cta__content {
@@ -623,5 +692,29 @@
   .nutr-phases,
   .nutr-cta {
     padding: 60px 22px;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   MOBILE SCROLL TOUCH FIX
+═══════════════════════════════════════════ */
+@media (hover: none) and (pointer: coarse) {
+  /* Ensure touch events propagate correctly for scrolling on mobile */
+  .nutr-hero__img-wrap,
+  .nutr-hero__noise,
+  .nutr-hero__grid,
+  .nutr-hero__overlay,
+  .nutr-hero__datacard {
+    pointer-events: none;
+    touch-action: none;
+  }
+
+  .nutrition-page,
+  .nutr-hero,
+  .nutr-services,
+  .nutr-phases,
+  .nutr-cta {
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
   }
 }

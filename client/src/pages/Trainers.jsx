@@ -6,6 +6,13 @@ import "../styles/trainers.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const CLOUD = import.meta.env.VITE_CLOUDINARY_NAME;
+
+const img = (id, transforms = "q_auto,f_auto") =>
+  `https://res.cloudinary.com/${CLOUD}/image/upload/${transforms}/${id}`;
+
+const TRAINERS_HERO_BG = img("unnamed_hzughm", "q_auto,f_auto,w_1920");
+
 const trainers = [
   {
     id: "01",
@@ -87,6 +94,9 @@ export default function Trainers() {
   const [active, setActive] = useState(null);
 
   useEffect(() => {
+    // Refresh ScrollTrigger after mount to fix position calculations
+    ScrollTrigger.refresh();
+
     const ctx = gsap.context(() => {
       gsap.fromTo(
         ".trainer-card-full",
@@ -97,7 +107,11 @@ export default function Trainers() {
           stagger: 0.1,
           duration: 0.9,
           ease: "power3.out",
-          scrollTrigger: { trigger: gridRef.current, start: "top 78%" },
+          scrollTrigger: {
+            trigger: gridRef.current,
+            start: "top 78%",
+            once: true,
+          },
         },
       );
 
@@ -109,21 +123,33 @@ export default function Trainers() {
           opacity: 1,
           duration: 0.9,
           ease: "power3.out",
-          scrollTrigger: { trigger: ".trainer-cta", start: "top 85%" },
+          scrollTrigger: {
+            trigger: ".trainer-cta",
+            start: "top 85%",
+            once: true,
+          },
         },
       );
     });
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
   }, []);
 
   return (
     <main className="trainers-page">
       {/* HERO */}
       <section className="tr-hero" ref={heroRef}>
-        <div className="tr-hero__noise" />
-        <div className="tr-hero__grid" />
-        <div className="tr-hero__accent-line" />
+        <div className="tr-hero__img-wrap" aria-hidden="true">
+          <img src={TRAINERS_HERO_BG} alt="" className="tr-hero__img" />
+          <div className="tr-hero__overlay" />
+        </div>
+
+        <div className="tr-hero__noise" aria-hidden="true" />
+        <div className="tr-hero__grid" aria-hidden="true" />
+        <div className="tr-hero__accent-line" aria-hidden="true" />
 
         <div className="tr-hero__content">
           <motion.div
@@ -182,6 +208,7 @@ export default function Trainers() {
           initial={{ opacity: 0, x: 40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 1.2, duration: 0.7 }}
+          aria-label="6 Active Coaches"
         >
           <span className="dot--green" />6 Active Coaches
         </motion.div>
@@ -274,7 +301,7 @@ export default function Trainers() {
 
       {/* CTA */}
       <section className="trainer-cta">
-        <div className="trainer-cta__noise" />
+        <div className="trainer-cta__noise" aria-hidden="true" />
         <motion.div
           className="trainer-cta__content"
           initial={{ opacity: 0, y: 32 }}
