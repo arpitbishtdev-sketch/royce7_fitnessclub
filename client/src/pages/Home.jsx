@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import TrialModal from "../components/TrialModal";
 import "../styles/home.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -104,6 +105,8 @@ function CountUp({ target }) {
 }
 
 export default function Home() {
+  const [trialOpen, setTrialOpen] = useState(false);
+
   const heroRef = useRef(null);
   const marqueeRef = useRef(null);
   const programsRef = useRef(null);
@@ -284,7 +287,9 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.25, duration: 0.6 }}
           >
-            <button className="btn-primary">START FREE TRIAL</button>
+            <button className="btn-primary" onClick={() => setTrialOpen(true)}>
+              START FREE TRIAL
+            </button>
             <button className="btn-ghost">
               <span className="btn-ghost__icon">▶</span>
               WATCH STORY
@@ -329,6 +334,8 @@ export default function Home() {
           <span>3,800+ active members</span>
         </motion.div>
       </section>
+
+      <TrialModal isOpen={trialOpen} onClose={() => setTrialOpen(false)} />
 
       {/* ─────────────── MARQUEE ─────────────── */}
       <div className="marquee-track">

@@ -1,0 +1,795 @@
+/* ═══════════════════════════════════════════
+   TRIAL MODAL — trial-modal.css
+   Import alongside nutrition.css / global.css
+═══════════════════════════════════════════ */
+
+:root {
+  --tm-black: #080808;
+  --tm-grey: #111111;
+  --tm-grey-mid: #191919;
+  --tm-gold: #c9a84c;
+  --tm-gold-dim: rgba(201, 168, 76, 0.18);
+  --tm-gold-border: rgba(201, 168, 76, 0.22);
+  --tm-red: #e4301f;
+  --tm-red-dark: #b82218;
+  --tm-white: #f4ede0;
+  --tm-white-dim: rgba(244, 237, 224, 0.45);
+  --tm-white-faint: rgba(244, 237, 224, 0.08);
+  --tm-muted: #555;
+}
+
+/* ─── OVERLAY ─────────────────────────────── */
+.tm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(4, 4, 4, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.tm-overlay__noise {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  pointer-events: none;
+}
+
+/* ─── MODAL SHELL ─────────────────────────────── */
+.tm-modal {
+  position: relative;
+  background: var(--tm-black);
+  border: 1px solid var(--tm-gold-border);
+  width: 100%;
+  max-width: 760px;
+  min-height: 580px;
+  padding: 52px 56px 44px;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.tm-modal::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--tm-red), var(--tm-gold));
+}
+
+.tm-modal::after {
+  content: "◈";
+  position: absolute;
+  bottom: -30px;
+  right: -20px;
+  font-size: 200px;
+  color: rgba(201, 168, 76, 0.025);
+  pointer-events: none;
+  line-height: 1;
+}
+
+.tm-modal__grid {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.012) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+/* ─── CLOSE BUTTON ─────────────────────────────── */
+.tm-close {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+
+.tm-close:hover {
+  border-color: var(--tm-gold);
+  background: rgba(201, 168, 76, 0.07);
+}
+
+.tm-close__line {
+  display: block;
+  width: 14px;
+  height: 1.5px;
+  background: var(--tm-white);
+  position: absolute;
+  transition: background 0.2s;
+}
+
+.tm-close__line--1 {
+  transform: rotate(45deg);
+}
+.tm-close__line--2 {
+  transform: rotate(-45deg);
+}
+.tm-close:hover .tm-close__line {
+  background: var(--tm-gold);
+}
+
+/* ─── BRAND MARK ─────────────────────────────── */
+.tm-brand {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--tm-gold);
+  margin-bottom: 32px;
+}
+
+.tm-brand__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--tm-red);
+  animation: tmDotPulse 2s infinite;
+}
+
+@keyframes tmDotPulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.7);
+  }
+}
+
+/* ─── PROGRESS BAR ─────────────────────────────── */
+.tm-progress {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  margin-bottom: 44px;
+}
+
+.tm-progress__step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.tm-progress__dot {
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--tm-muted);
+  transition:
+    border-color 0.3s,
+    background 0.3s,
+    color 0.3s;
+}
+
+.tm-progress__step.active .tm-progress__dot {
+  border-color: var(--tm-gold);
+  background: rgba(201, 168, 76, 0.1);
+  color: var(--tm-gold);
+}
+
+.tm-progress__step.done .tm-progress__dot {
+  border-color: var(--tm-red);
+  background: rgba(228, 48, 31, 0.12);
+  color: var(--tm-red);
+}
+
+.tm-progress__check {
+  font-size: 13px;
+}
+
+.tm-progress__label {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--tm-muted);
+  transition: color 0.3s;
+}
+
+.tm-progress__step.active .tm-progress__label {
+  color: var(--tm-gold);
+}
+
+.tm-progress__step.done .tm-progress__label {
+  color: rgba(228, 48, 31, 0.7);
+}
+
+.tm-progress__line {
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 0 10px;
+  margin-bottom: 22px;
+  overflow: hidden;
+  position: relative;
+}
+
+.tm-progress__line-fill {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, var(--tm-red), var(--tm-gold));
+  transform-origin: left;
+}
+
+/* ─── STEP VIEWPORT ─────────────────────────────── */
+.tm-step-viewport {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ─── STEP SHARED ─────────────────────────────── */
+.tm-step {
+  width: 100%;
+}
+
+.tm-step__eyebrow {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--tm-gold);
+  margin-bottom: 10px;
+}
+
+.tm-step__title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(28px, 3.8vw, 42px);
+  letter-spacing: 0.04em;
+  color: var(--tm-white);
+  margin-bottom: 10px;
+  line-height: 1;
+}
+
+.tm-step__sub {
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--tm-white-dim);
+  margin-bottom: 32px;
+  max-width: 480px;
+}
+
+/* ─── STEP 1 — GOAL CARDS ─────────────────────────────── */
+.tm-goal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.tm-goal-card {
+  position: relative;
+  background: var(--tm-grey);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 24px 22px;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition:
+    background 0.25s,
+    border-color 0.25s,
+    transform 0.2s;
+  overflow: hidden;
+}
+
+.tm-goal-card:hover {
+  background: var(--tm-grey-mid);
+  border-color: rgba(201, 168, 76, 0.25);
+  transform: translateY(-2px);
+}
+
+.tm-goal-card--selected {
+  background: rgba(201, 168, 76, 0.06);
+  border-color: rgba(201, 168, 76, 0.45);
+}
+
+.tm-goal-card--selected .tm-goal-card__icon {
+  color: var(--tm-gold);
+}
+
+.tm-goal-card--selected .tm-goal-card__title {
+  color: var(--tm-gold);
+}
+
+.tm-goal-card--selected .tm-goal-card__selected-line {
+  transform: scaleX(1);
+}
+
+.tm-goal-card__icon {
+  font-size: 20px;
+  color: rgba(244, 237, 224, 0.2);
+  line-height: 1;
+  transition: color 0.25s;
+  margin-bottom: 6px;
+}
+
+.tm-goal-card__title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.06em;
+  color: var(--tm-white);
+  line-height: 1;
+  transition: color 0.25s;
+}
+
+.tm-goal-card__sub {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 224, 0.28);
+}
+
+/* Corner decorations */
+.tm-goal-card__corner {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-color: var(--tm-gold);
+  border-style: solid;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.tm-goal-card:hover .tm-goal-card__corner,
+.tm-goal-card--selected .tm-goal-card__corner {
+  opacity: 1;
+}
+.tm-goal-card__corner--tl {
+  top: 6px;
+  left: 6px;
+  border-width: 1px 0 0 1px;
+}
+.tm-goal-card__corner--br {
+  bottom: 6px;
+  right: 6px;
+  border-width: 0 1px 1px 0;
+}
+
+.tm-goal-card__selected-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(to right, var(--tm-red), var(--tm-gold));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+}
+
+/* ─── STEP 2 — FIELDS ─────────────────────────────── */
+.tm-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.tm-field__label {
+  display: block;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 224, 0.35);
+  margin-bottom: 10px;
+}
+
+.tm-field__input {
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.28);
+  color: var(--tm-white);
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  padding: 13px 16px;
+  outline: none;
+  transition:
+    border-color 0.25s,
+    background 0.25s;
+}
+
+.tm-field__input::placeholder {
+  color: rgba(244, 237, 224, 0.15);
+}
+
+.tm-field__input:focus {
+  background: rgba(201, 168, 76, 0.05);
+  border-bottom-color: var(--tm-gold);
+}
+
+.tm-toggle-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.tm-toggles {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tm-toggle {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(244, 237, 224, 0.45);
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s;
+}
+
+.tm-toggle:hover {
+  border-color: rgba(201, 168, 76, 0.3);
+  color: var(--tm-white);
+}
+
+.tm-toggle--active {
+  background: rgba(201, 168, 76, 0.1);
+  border-color: var(--tm-gold);
+  color: var(--tm-gold);
+}
+
+/* ─── STEP 3 — SUMMARY ─────────────────────────────── */
+.tm-summary {
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.tm-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 22px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  gap: 16px;
+}
+
+.tm-summary-row:last-child {
+  border-bottom: none;
+}
+
+.tm-summary-row:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.018);
+}
+
+.tm-summary-row__key {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 224, 0.3);
+  flex-shrink: 0;
+}
+
+.tm-summary-row__val {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--tm-white);
+  text-align: right;
+}
+
+.tm-confirm-notice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: rgba(244, 237, 224, 0.3);
+  border: 1px solid rgba(201, 168, 76, 0.12);
+  padding: 14px 18px;
+  background: rgba(201, 168, 76, 0.03);
+}
+
+.tm-confirm-notice__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--tm-gold);
+  flex-shrink: 0;
+  animation: tmDotPulse 2s infinite;
+}
+
+/* ─── FOOTER NAV ─────────────────────────────── */
+.tm-footer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.tm-btn-back {
+  background: none;
+  border: none;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 224, 0.35);
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.tm-btn-back:hover {
+  color: var(--tm-white);
+}
+
+.tm-btn-primary {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--tm-red);
+  border: none;
+  color: var(--tm-white);
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  padding: 16px 32px;
+  cursor: pointer;
+  clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+  transition: background 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.tm-btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 80%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+
+.tm-btn-primary:hover::after {
+  transform: translateX(100%);
+}
+
+.tm-btn-primary:hover {
+  background: var(--tm-red-dark);
+}
+
+.tm-btn-primary--disabled {
+  background: rgba(228, 48, 31, 0.3);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.tm-btn-primary__arrow {
+  font-size: 15px;
+  transition: transform 0.2s;
+  position: relative;
+  z-index: 1;
+}
+
+.tm-btn-primary:hover .tm-btn-primary__arrow {
+  transform: translateX(3px);
+}
+
+.tm-btn-primary span:first-child {
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── SUCCESS SCREEN ─────────────────────────────── */
+.tm-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px 20px 40px;
+  min-height: 460px;
+  position: relative;
+  z-index: 1;
+}
+
+.tm-success__emblem {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.tm-success__ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--tm-gold);
+  border-radius: 50%;
+}
+
+.tm-success__ring::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  border-radius: 50%;
+}
+
+.tm-success__check {
+  font-size: 28px;
+  color: var(--tm-gold);
+  line-height: 1;
+  font-family: sans-serif;
+}
+
+.tm-success__tag {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--tm-gold);
+  margin-bottom: 14px;
+}
+
+.tm-success__title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(52px, 7vw, 80px);
+  letter-spacing: 0.04em;
+  color: var(--tm-white);
+  line-height: 1;
+  margin-bottom: 18px;
+}
+
+.tm-success__body {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.85;
+  color: rgba(244, 237, 224, 0.55);
+  max-width: 400px;
+  margin-bottom: 32px;
+}
+
+.tm-success__body strong {
+  color: var(--tm-white);
+  font-weight: 600;
+}
+
+.tm-success__divider {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(to right, var(--tm-red), var(--tm-gold));
+  transform-origin: left;
+  margin-bottom: 22px;
+}
+
+.tm-success__footnote {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(244, 237, 224, 0.25);
+}
+
+/* ─── RESPONSIVE ─────────────────────────────── */
+@media (max-width: 680px) {
+  .tm-modal {
+    padding: 44px 24px 34px;
+    min-height: unset;
+    margin: 16px auto;
+  }
+
+  .tm-goal-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .tm-progress__label {
+    display: none;
+  }
+
+  .tm-progress__dot {
+    width: 26px;
+    height: 26px;
+    font-size: 11px;
+  }
+
+  .tm-footer {
+    margin-top: 28px;
+    padding-top: 22px;
+  }
+
+  .tm-btn-primary {
+    padding: 14px 24px;
+    font-size: 11px;
+  }
+
+  .tm-summary-row {
+    padding: 13px 16px;
+  }
+}
+
+@media (max-width: 400px) {
+  .tm-modal {
+    padding: 36px 18px 28px;
+  }
+
+  .tm-toggles {
+    gap: 6px;
+  }
+
+  .tm-toggle {
+    padding: 9px 14px;
+    font-size: 11px;
+  }
+}
