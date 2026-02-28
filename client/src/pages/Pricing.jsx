@@ -6,6 +6,13 @@ import "../styles/pricing.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const CLOUD = import.meta.env.VITE_CLOUDINARY_NAME;
+
+const img = (id, transforms = "q_auto,f_auto") =>
+  `https://res.cloudinary.com/${CLOUD}/image/upload/${transforms}/${id}`;
+
+const PRICING_HERO_BG = img("pricing_l4wpxp", "q_auto,f_auto,w_1920");
+
 const plans = [
   {
     id: "FOUNDATION",
@@ -146,6 +153,15 @@ export default function Pricing() {
     <main className="pricing-page">
       {/* HERO */}
       <section className="pricing-hero" ref={heroRef}>
+        <div className="pricing-hero__img-wrap">
+          <img
+            src={PRICING_HERO_BG}
+            alt="Premium gym pricing"
+            className="pricing-hero__img"
+          />
+          <div className="pricing-hero__overlay" />
+        </div>
+
         <div className="pricing-hero__noise" />
         <div className="pricing-hero__grid" />
 

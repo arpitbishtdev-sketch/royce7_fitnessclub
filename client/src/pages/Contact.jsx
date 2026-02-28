@@ -6,6 +6,13 @@ import "../styles/contact.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const CLOUD = import.meta.env.VITE_CLOUDINARY_NAME;
+
+const img = (id, transforms = "q_auto,f_auto") =>
+  `https://res.cloudinary.com/${CLOUD}/image/upload/${transforms}/${id}`;
+
+const CONTACT_HERO_BG = img("CONTACT_u51iis", "q_auto,f_auto,w_1920");
+
 const contactInfo = [
   {
     icon: "📍",
@@ -111,6 +118,14 @@ export default function Contact() {
     <main className="contact-page">
       {/* ─────── HERO ─────── */}
       <section className="contact-hero">
+        <div className="contact-hero__img-wrap">
+          <img
+            src={CONTACT_HERO_BG}
+            alt="Contact Royce7"
+            className="contact-hero__img"
+          />
+          <div className="contact-hero__overlay" />
+        </div>
         <div className="contact-hero__noise" />
         <div className="contact-hero__grid" />
         <div className="contact-hero__accent" />
