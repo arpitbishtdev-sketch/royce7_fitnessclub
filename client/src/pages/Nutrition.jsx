@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import MacroCalculator from "../components/MacroCalculator";
 import "../styles/nutrition.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -92,7 +93,6 @@ export default function Nutrition() {
   const heroRef = useRef(null);
   const servicesRef = useRef(null);
   const phasesRef = useRef(null);
-  const macroRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -119,18 +119,6 @@ export default function Nutrition() {
           duration: 0.85,
           ease: "power3.out",
           scrollTrigger: { trigger: phasesRef.current, start: "top 78%" },
-        },
-      );
-
-      gsap.fromTo(
-        ".macro-bar-fill",
-        { scaleX: 0 },
-        {
-          scaleX: 1,
-          stagger: 0.15,
-          duration: 1.1,
-          ease: "power3.out",
-          scrollTrigger: { trigger: macroRef.current, start: "top 80%" },
         },
       );
 
@@ -249,42 +237,7 @@ export default function Nutrition() {
       </section>
 
       {/* MACRO BREAKDOWN */}
-      <section className="macro-section" ref={macroRef}>
-        <div className="macro-section__inner">
-          <div className="macro-section__left">
-            <div className="section-tag">MACRONUTRIENT SCIENCE</div>
-            <h2 className="section-title">NUMBERS THAT PERFORM</h2>
-            <p className="section-desc">
-              Every gram is purposeful. Our nutritionists calibrate your macro
-              targets weekly based on performance data, body composition scans,
-              and training load — not generic calculators.
-            </p>
-          </div>
-          <div className="macro-section__right">
-            {macros.map((m) => (
-              <div key={m.label} className="macro-bar">
-                <div className="macro-bar__header">
-                  <span className="macro-bar__label" style={{ color: m.color }}>
-                    {m.label}
-                  </span>
-                  <span className="macro-bar__grams">{m.grams}</span>
-                </div>
-                <div className="macro-bar__track">
-                  <div
-                    className="macro-bar-fill"
-                    style={{
-                      "--pct": `${m.pct}%`,
-                      "--color": m.color,
-                      transformOrigin: "left",
-                    }}
-                  />
-                </div>
-                <span className="macro-bar__note">{m.note}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <MacroCalculator />
 
       {/* SERVICES */}
       <section className="nutr-services" ref={servicesRef}>
