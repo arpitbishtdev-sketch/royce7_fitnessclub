@@ -1,0 +1,75 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    opacity 0.2s,
+    transform 0.15s,
+    box-shadow 0.2s;
+}
+
+.btn:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+.btn:active {
+  transform: translateY(0);
+}
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Sizes */
+.btn-sm {
+  padding: 7px 14px;
+  font-size: 12px;
+}
+.btn-md {
+  padding: 10px 20px;
+  font-size: 13px;
+}
+.btn-lg {
+  padding: 14px 28px;
+  font-size: 15px;
+}
+
+/* Variants */
+.btn-primary {
+  background: linear-gradient(135deg, var(--gold-dim), var(--gold));
+  color: var(--black);
+}
+
+.btn-danger {
+  background: var(--red);
+  color: var(--white);
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--black-5);
+  color: var(--white-dim);
+}
+
+.btn-ghost:hover {
+  border-color: var(--gold-dim);
+  color: var(--white);
+  opacity: 1;
+}
+
+.btn-outline-gold {
+  background: transparent;
+  border: 1px solid var(--gold-dim);
+  color: var(--gold);
+}
+
+.btn-outline-gold:hover {
+  background: rgba(201, 168, 76, 0.1);
+  opacity: 1;
+}

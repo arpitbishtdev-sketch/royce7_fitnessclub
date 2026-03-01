@@ -1,0 +1,122 @@
+.table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.data-table thead th {
+  background: var(--black-3);
+  color: var(--gold);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+  padding: 13px 16px;
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--black-5);
+}
+
+.data-table tbody td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--black-4);
+  color: var(--white);
+  vertical-align: middle;
+}
+
+.table-row {
+  transition: background 0.15s;
+}
+
+.table-row:hover {
+  background: rgba(201, 168, 76, 0.04);
+}
+
+/* Skeleton */
+.table-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skeleton-row {
+  display: flex;
+  gap: 12px;
+}
+
+.skeleton-cell {
+  height: 40px;
+  flex: 1;
+  background: var(--black-3);
+  border-radius: 6px;
+  animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Empty state */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 60px 20px;
+  color: var(--white-dim);
+}
+
+.empty-icon {
+  font-size: 40px;
+  opacity: 0.4;
+}
+.empty-msg {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Status badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.badge-green {
+  background: rgba(39, 174, 96, 0.15);
+  color: #4cd47a;
+}
+.badge-yellow {
+  background: rgba(243, 156, 18, 0.15);
+  color: #f7c94b;
+}
+.badge-red {
+  background: rgba(192, 57, 43, 0.15);
+  color: #e57373;
+}
+.badge-blue {
+  background: rgba(52, 152, 219, 0.15);
+  color: #64b5f6;
+}
+.badge-gray {
+  background: var(--black-4);
+  color: var(--white-dim);
+}

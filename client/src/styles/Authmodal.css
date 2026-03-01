@@ -1,0 +1,473 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@500;700&display=swap");
+
+/* ─── overlay ─────────────────────────────────── */
+.auth-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+}
+
+/* ─── modal shell ──────────────────────────────── */
+.auth-modal {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  background: #0f0f0f;
+  border: 1px solid #1e1e1e;
+  overflow: hidden;
+  box-shadow:
+    0 40px 80px rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(230, 48, 34, 0.08);
+}
+
+/* red slash accent at top */
+.auth-modal::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--red, #e63022) 60%, transparent 100%);
+}
+
+/* ─── close btn ────────────────────────────────── */
+.auth-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: 1px solid #2a2a2a;
+  color: #666;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: all 0.2s;
+  z-index: 10;
+}
+
+.auth-close:hover {
+  border-color: var(--red, #e63022);
+  color: var(--white, #f5f0e8);
+}
+
+/* ─── header ───────────────────────────────────── */
+.auth-header {
+  padding: 44px 48px 0;
+}
+
+.auth-header__eyebrow {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--red, #e63022);
+  margin-bottom: 8px;
+}
+
+.auth-header__title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 48px;
+  letter-spacing: 0.04em;
+  color: #f5f0e8;
+  line-height: 1;
+}
+
+.auth-header__title span {
+  color: var(--red, #e63022);
+}
+
+/* ─── stepper ──────────────────────────────────── */
+.auth-stepper {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 28px 48px 0;
+}
+
+.auth-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.auth-step__num {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  border: 1px solid #2a2a2a;
+  color: #444;
+  transition: all 0.35s ease;
+  flex-shrink: 0;
+  clip-path: polygon(4px 0%, 100% 0%, calc(100% - 4px) 100%, 0% 100%);
+}
+
+.auth-step__label {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #333;
+  transition: color 0.35s ease;
+  white-space: nowrap;
+}
+
+.auth-step__line {
+  flex: 1;
+  height: 1px;
+  background: #1e1e1e;
+  margin: 0 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-step__line-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: var(--red, #e63022);
+  width: 0%;
+  transition: width 0.5s ease;
+}
+
+/* active step */
+.auth-step--active .auth-step__num {
+  background: var(--red, #e63022);
+  border-color: var(--red, #e63022);
+  color: #fff;
+}
+
+.auth-step--active .auth-step__label {
+  color: #f5f0e8;
+}
+
+/* done step */
+.auth-step--done .auth-step__num {
+  background: #1a1a1a;
+  border-color: var(--red, #e63022);
+  color: var(--red, #e63022);
+}
+
+.auth-step--done .auth-step__label {
+  color: #666;
+}
+
+/* ─── body ─────────────────────────────────────── */
+.auth-body {
+  padding: 32px 48px 44px;
+  overflow: hidden;
+}
+
+/* ─── step panels ──────────────────────────────── */
+.auth-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ─── mode toggle (Login | Register) ──────────── */
+.auth-toggle {
+  display: flex;
+  border: 1px solid #1e1e1e;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.auth-toggle__btn {
+  flex: 1;
+  background: none;
+  border: none;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #444;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.25s;
+  position: relative;
+}
+
+.auth-toggle__btn--active {
+  background: var(--red, #e63022);
+  color: #f5f0e8;
+}
+
+/* ─── google btn ───────────────────────────────── */
+.auth-google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: #151515;
+  border: 1px solid #2a2a2a;
+  color: #c8c8c8;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 14px 20px;
+  cursor: pointer;
+  transition: all 0.25s;
+  width: 100%;
+}
+
+.auth-google:hover {
+  border-color: #444;
+  color: #f5f0e8;
+  background: #1a1a1a;
+}
+
+.auth-google__icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* ─── divider ──────────────────────────────────── */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #2e2e2e;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #1e1e1e;
+}
+
+/* ─── field ────────────────────────────────────── */
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.auth-field__label {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #555;
+}
+
+.auth-field__input {
+  background: #0a0a0a;
+  border: 1px solid #222;
+  color: #f5f0e8;
+  font-family: "Barlow", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  padding: 13px 16px;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+
+.auth-field__input::placeholder {
+  color: #333;
+}
+
+.auth-field__input:focus {
+  border-color: var(--red, #e63022);
+}
+
+/* ─── goal grid (step 2) ───────────────────────── */
+.auth-goals {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.auth-goal {
+  background: #0a0a0a;
+  border: 1px solid #1e1e1e;
+  color: #555;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 18px 14px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  transition: all 0.2s;
+  text-align: left;
+  clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+}
+
+.auth-goal:hover {
+  border-color: #333;
+  color: #aaa;
+}
+
+.auth-goal--selected {
+  border-color: var(--red, #e63022);
+  color: #f5f0e8;
+  background: rgba(230, 48, 34, 0.06);
+}
+
+.auth-goal__icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* ─── step label heading ───────────────────────── */
+.auth-step-heading {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #444;
+  margin-bottom: 4px;
+}
+
+/* ─── submit btn ───────────────────────────────── */
+.auth-submit {
+  background: var(--red, #e63022);
+  color: #f5f0e8;
+  border: none;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  padding: 16px 28px;
+  cursor: pointer;
+  width: 100%;
+  clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+  transition: background 0.2s;
+  margin-top: 4px;
+}
+
+.auth-submit:hover {
+  background: #b82218;
+}
+
+/* ─── nav row ──────────────────────────────────── */
+.auth-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.auth-back {
+  background: none;
+  border: none;
+  color: #555;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.auth-back:hover {
+  color: #f5f0e8;
+}
+
+/* ─── success state ────────────────────────────── */
+.auth-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px 0;
+  gap: 16px;
+}
+
+.auth-success__icon {
+  width: 64px;
+  height: 64px;
+  background: rgba(230, 48, 34, 0.1);
+  border: 1px solid var(--red, #e63022);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+}
+
+.auth-success__title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 38px;
+  letter-spacing: 0.04em;
+  color: #f5f0e8;
+}
+
+.auth-success__sub {
+  font-family: "Barlow", sans-serif;
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
+  max-width: 300px;
+}
+
+.auth-success__badge {
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--red, #e63022);
+  background: rgba(230, 48, 34, 0.08);
+  border: 1px solid rgba(230, 48, 34, 0.2);
+  padding: 8px 20px;
+}
+
+/* ─── responsive ────────────────────────────────── */
+@media (max-width: 560px) {
+  .auth-header,
+  .auth-stepper,
+  .auth-body {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .auth-header__title {
+    font-size: 36px;
+  }
+
+  .auth-step__label {
+    display: none;
+  }
+}
