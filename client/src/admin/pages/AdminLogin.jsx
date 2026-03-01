@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import Button from "../components/Button";
-import "../style/AdminLogin.css";
+import "../styles/Adminlogin.css";
 
 export default function AdminLogin({}) {
   const navigate = useNavigate();

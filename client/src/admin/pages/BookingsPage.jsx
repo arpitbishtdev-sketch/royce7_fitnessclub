@@ -4,7 +4,7 @@ import Table from "../components/Table";
 import Modal from "../components/Modal";
 import Card from "../components/Card";
 import Button from "../components/Button";
-import "../style/BookingsPage.css";
+import "../styles/BookingsPage.css";
 
 const MOCK_BOOKINGS = [
   {

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import Table from "../components/Table";
 import Modal from "../components/Modal";
 import Card from "../components/Card";
-import "../style/UsersPage.css";
+import "../styles/UsersPage.css";
 
 const MOCK_USERS = [
   {

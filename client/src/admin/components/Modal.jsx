@@ -1,7 +1,7 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "./Button";
-import "../style/Modal.css";
+import "../styles/Modal.css";
 
 export default function Modal({
   isOpen,

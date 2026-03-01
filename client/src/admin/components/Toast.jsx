@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import "../style/Toast.css";
+import "../styles/Toast.css";
 
 const icons = {
   success: "✓",

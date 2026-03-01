@@ -1,5 +1,5 @@
 import React from "react";
-import "../style/Table.css";
+import "../styles/Table.css";
 
 export function TableSkeleton({ cols = 5, rows = 5 }) {
   return (

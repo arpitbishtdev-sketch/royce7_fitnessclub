@@ -5,8 +5,8 @@ import Navbar from "./components/Navbar";
 import AdminDashboard from "./pages/AdminDashboard";
 import BookingsPage from "./pages/BookingsPage";
 import UsersPage from "./pages/UsersPage";
-import "./style/admin-global.css";
-import "./style/app.css";
+import "./styles/admin-global.css";
+import "./styles/app.css";
 
 export default function AdminLayout() {
   const [activePage, setActivePage] = useState("dashboard");

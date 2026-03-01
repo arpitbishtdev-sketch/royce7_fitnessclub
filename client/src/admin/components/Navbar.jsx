@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../style/Navbar.css";
+import "../styles/Navbar.css";
 
 export default function Navbar({ addToast }) {
   const [showProfile, setShowProfile] = useState(false);

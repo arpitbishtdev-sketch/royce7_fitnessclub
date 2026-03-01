@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import "../style/Card.css";
+import "../styles/Card.css";
 
 export default function Card({
   children,

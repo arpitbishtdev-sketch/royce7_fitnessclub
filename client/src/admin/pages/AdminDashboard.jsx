@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Card from "../components/Card";
-import "../style/AdminDashboard.css";
+import "../styles/AdminDashboard.css";
 
 const stats = [
   { label: "Total Users", value: "3,842", trend: "+12%", up: true, icon: "👥" },

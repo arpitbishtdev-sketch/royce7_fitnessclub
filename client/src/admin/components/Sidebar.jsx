@@ -1,5 +1,5 @@
 import React from "react";
-import "../style/Sidebar.css";
+import "../styles/Sidebar.css";
 
 const icons = {
   dashboard: (
